@@ -1,9 +1,16 @@
 import { auth, provider } from "./../firebase/FirebaseConfig";
-import { signInWithRedirect } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 
 const AuthPage = () => {
-  const handleClick = () => {
-    signInWithRedirect(auth, provider);
+  const handleClick = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      // Oturum açma başarılı, result içinde kullanıcı bilgileri bulunabilir.
+      console.log("Oturum açma başarılı:", result.user);
+    } catch (error) {
+      // Oturum açma sırasında hata oluştu
+      console.error("Oturum açma hatası:", error);
+    }
   };
   return (
     <div className=" grid place-items-center m-auto h-[80vh] items-center justify-center flex-col ">
